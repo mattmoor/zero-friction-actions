@@ -1,10 +1,5 @@
 name: Publish Signed Container Image
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   workflow_dispatch: {}
 
@@ -36,8 +31,11 @@ jobs:
       - name: Build and push container image
         id: push-step
         uses: docker/build-push-action@master
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
 
       - name: Sign the container image
         env:
           COSIGN_EXPERIMENTAL: "true"
-        run: cosign sign --force ${{ steps.push-step.outputs.digest }}
+        run: cosign sign --force ghcr.io/${{ steps.push-step.outputs.digest }}
