@@ -42,4 +42,9 @@ jobs:
       - name: Sign the container image
         env:
           COSIGN_EXPERIMENTAL: "true"
+        # If the image being signed is public, then --force is never needed.
+        # Prior to cosign 1.4, --force is necessary to perform keyless signing
+        # of private images because the shell prompt for whether to upload to
+        # the public transparency log panics.  After 1.4 cosign doesn't panic,
+        # but it won't upload to the transparency log without --force.
         run: cosign sign --force ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
