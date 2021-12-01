@@ -40,6 +40,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
 
       - name: Sign the container image
+        if: ${{ !github.event.repository.private }}
         env:
           COSIGN_EXPERIMENTAL: "true"
         # If the image being signed is public, then --force is never needed.
