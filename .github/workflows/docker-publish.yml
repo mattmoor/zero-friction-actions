@@ -47,7 +47,7 @@ jobs:
           echo "IS_PRIVATE=$TEMP" >> $GITHUB_ENV
 
       - name: Sign the container image (if public)
-        if: (!(env.IS_PRIVATE))
+        if: ${{ env.IS_PRIVATE == 'false' }}
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
