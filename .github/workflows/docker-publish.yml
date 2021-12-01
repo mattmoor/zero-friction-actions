@@ -39,15 +39,7 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
-      - name: Confirm this is a public repository
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          TEMP=$(gh api repos/$GITHUB_REPOSITORY --jq '.private')
-          echo "IS_PRIVATE=$TEMP" >> $GITHUB_ENV
-
-      - name: Sign the container image (if public)
-        if: ${{ env.IS_PRIVATE == 'false' }}
+      - name: Sign the container image
         env:
           COSIGN_EXPERIMENTAL: "true"
-        run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+        run: cosign sign --force ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
