@@ -1,4 +1,4 @@
-# Keyless signing with Github Actions
+# Keyless signing with GitHub Actions
 
 This repo contains a small example of how to perform keyless signing with
-Github Actions using Sigstore's cosign.
+GitHub Actions using sigstore's [cosign](https://github.com/sigstore/cosign).
