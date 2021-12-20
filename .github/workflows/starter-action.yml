@@ -35,7 +35,9 @@ jobs:
 
     steps:
       - run: |
-          cat /etc/docker/daemon.json
+          tmp=$(mktemp)
+          jq '."registry-mirrors" = ["https://mirror.gcr.io"]' /etc/docker/daemon.json > "$tmp"
+          mv "$tmp" /etc/docker/daemon.json
 
       - name: Checkout repository
         uses: actions/checkout@v2
