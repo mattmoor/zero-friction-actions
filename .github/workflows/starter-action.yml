@@ -38,6 +38,9 @@ jobs:
           tmp=$(mktemp)
           jq '."registry-mirrors" = ["https://mirror.gcr.io"]' /etc/docker/daemon.json > "$tmp"
           sudo mv "$tmp" /etc/docker/daemon.json
+          
+          # Test it!
+          docker pull ubuntu
 
       - name: Checkout repository
         uses: actions/checkout@v2
