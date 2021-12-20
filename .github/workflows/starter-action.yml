@@ -34,6 +34,9 @@ jobs:
       id-token: write
 
     steps:
+      - run: |
+          cat /etc/docker/daemon.json
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
