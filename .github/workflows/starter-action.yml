@@ -39,6 +39,8 @@ jobs:
           jq '."registry-mirrors" = ["https://mirror.gcr.io"]' /etc/docker/daemon.json > "$tmp"
           sudo mv "$tmp" /etc/docker/daemon.json
           
+          sudo service restart dockerd
+          
           # Test it!
           docker pull ubuntu
 
