@@ -96,6 +96,6 @@ jobs:
             ghcr.io/mattmoor/zero-friction-actions:main
           )
 
-          for tag in $tags ; do
+          for tag in ${tags[@]} ; do
             cosign sign $tag@${{ steps.build-and-push.outputs.digest }}
           done
