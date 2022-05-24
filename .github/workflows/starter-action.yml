@@ -91,6 +91,11 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: |
-          for tag in ${{ steps.meta.outputs.tags }} ; do
+          tags=(
+            ghcr.io/mattmoor/zero-friction-actions:nightly
+            ghcr.io/mattmoor/zero-friction-actions:main
+          )
+
+          for tag in $tags ; do
             cosign sign $tag@${{ steps.build-and-push.outputs.digest }}
           done
