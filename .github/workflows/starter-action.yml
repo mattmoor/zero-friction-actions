@@ -92,8 +92,7 @@ jobs:
         # against the sigstore community Fulcio instance.
         run: |
           tags=(
-            ghcr.io/mattmoor/zero-friction-actions:nightly
-            ghcr.io/mattmoor/zero-friction-actions:main
+            ${{ steps.meta.outputs.tags }}
           )
 
           for tag in ${tags[@]} ; do
