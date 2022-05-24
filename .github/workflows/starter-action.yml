@@ -104,6 +104,6 @@ jobs:
         # against the sigstore community Fulcio instance, and records it to the
         # sigstore community Rekor transparency log.
         run: |
-          echo TAGS: ${{ steps.meta.outputs.tags }}
-          echo DIGEST: ${{ steps.build-and-push.outputs.digest }}
-          # cosign sign ${{ steps.meta.outputs.tags }}@${{ steps.build-and-push.outputs.digest }}
+          for tag in ${{ steps.meta.outputs.tags }} ; do
+            cosign sign $tag@${{ steps.build-and-push.outputs.digest }}
+          done
